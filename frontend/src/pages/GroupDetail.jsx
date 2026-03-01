@@ -354,7 +354,7 @@ const GroupDetail = () => {
                                             </div>
                                             <div className="flex items-center space-x-3">
                                                 <div className="text-2xl font-black text-slate-900 tabular-nums">
-                                                    ${exp.amount.toFixed(2)}
+                                                    {exp.amount.toFixed(2)}
                                                 </div>
                                                 <button
                                                     onClick={() => handleDeleteExpense(exp.id)}
@@ -393,7 +393,7 @@ const GroupDetail = () => {
                                                     {getUserName(bal.to_user)}
                                                 </span>
                                             </div>
-                                            <p className="text-xl font-black text-rose-600 mt-1">${bal.amount.toFixed(2)}</p>
+                                            <p className="text-xl font-black text-rose-600 mt-1">{bal.amount.toFixed(2)}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -420,7 +420,7 @@ const GroupDetail = () => {
                                                 <p className="text-[10px] text-slate-400">{new Date(s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                                             </div>
                                             <div className="flex items-center space-x-2">
-                                                <p className="text-lg font-black text-slate-900">${s.amount.toFixed(2)}</p>
+                                                <p className="text-lg font-black text-slate-900">{s.amount.toFixed(2)}</p>
                                                 <button
                                                     onClick={() => handleDeleteSettlement(s.id)}
                                                     className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-rose-300 hover:text-rose-500 hover:bg-rose-50 transition-all"
@@ -604,7 +604,7 @@ const GroupDetail = () => {
                                         <span className="text-xs font-extrabold text-slate-700">
                                             {getUserName(bal.from_user)} → {getUserName(bal.to_user)}
                                         </span>
-                                        <span className="text-xs font-black text-rose-600">${bal.amount.toFixed(2)}</span>
+                                        <span className="text-xs font-black text-rose-600">{bal.amount.toFixed(2)}</span>
                                     </button>
                                 ))}
                             </div>

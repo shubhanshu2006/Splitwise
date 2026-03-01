@@ -107,7 +107,7 @@ const Dashboard = () => {
                                 "text-5xl lg:text-7xl font-black tracking-tighter mb-4",
                                 netBalance >= 0 ? "text-emerald-400" : "text-rose-400"
                             )}>
-                                {netBalance >= 0 ? '+' : '-'}${Math.abs(netBalance).toFixed(2)}
+                                {netBalance >= 0 ? '+' : '-'}{Math.abs(netBalance).toFixed(2)}
                             </h1>
                             <p className="text-slate-400 font-medium">
                                 {netBalance > 0
@@ -149,7 +149,7 @@ const Dashboard = () => {
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-4xl font-black text-emerald-700 tracking-tight">${totalOwed.toFixed(2)}</div>
+                                <div className="text-4xl font-black text-emerald-700 tracking-tight">+{totalOwed.toFixed(2)}</div>
                                 <p className="text-xs font-bold text-emerald-600/60 mt-2 uppercase tracking-wide">
                                     From {owedToMe.length} {owedToMe.length === 1 ? 'person' : 'people'}
                                 </p>
@@ -166,7 +166,7 @@ const Dashboard = () => {
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-4xl font-black text-rose-700 tracking-tight">${totalOwe.toFixed(2)}</div>
+                                <div className="text-4xl font-black text-rose-700 tracking-tight">-{totalOwe.toFixed(2)}</div>
                                 <p className="text-xs font-bold text-rose-600/60 mt-2 uppercase tracking-wide">
                                     To {iOwe.length} {iOwe.length === 1 ? 'person' : 'people'}
                                 </p>
@@ -241,7 +241,7 @@ const Dashboard = () => {
                                             </span>
                                             <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg ml-2 shrink-0">SETTLED</span>
                                         </div>
-                                        <div className="mt-2 text-lg font-black text-slate-900">${s.amount.toFixed(2)}</div>
+                                        <div className="mt-2 text-lg font-black text-slate-900">{s.amount.toFixed(2)}</div>
                                         <p className="text-[10px] text-slate-400 mt-1 font-medium">
                                             {new Date(s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                         </p>
@@ -281,7 +281,7 @@ const BalanceRow = ({ name, amount, positive }) => (
                 "text-xl font-black tabular-nums",
                 positive ? "text-emerald-600" : "text-rose-600"
             )}>
-                ${amount.toFixed(2)}
+                {positive ? '+' : '-'}{amount.toFixed(2)}
             </span>
             <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-slate-500 transition-colors" />
         </div>
