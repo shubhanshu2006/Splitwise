@@ -1,5 +1,6 @@
 package handlers
-import ( 
+
+import (
 	"encoding/json"
 	"net/http"
 
@@ -8,9 +9,11 @@ import (
 	"splitwise/services"
 	"splitwise/utils"
 )
+
 type UserHandler struct {
 	Service *services.UserService
 }
+
 func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req models.RegisterRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -36,7 +39,16 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	utils.Success(w, map[string]string{"token": token})
-}	
+}
+func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+	users, err := h.Service.GetAll()
+	if err != nil {
+		utils.Error(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	utils.Success(w, users)
+}
+
 func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	userID := middleware.GetUserID(r)
 	user, err := h.Service.GetProfile(userID)
@@ -59,5 +71,3 @@ func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.Success(w, "profile updated")
 }
-
-
