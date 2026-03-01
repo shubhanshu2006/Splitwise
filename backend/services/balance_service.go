@@ -11,8 +11,9 @@ import (
 )
 
 type BalanceService struct {
-	ExpenseRepo *repository.ExpenseRepo
-	GroupRepo   *repository.GroupRepo
+	ExpenseRepo    *repository.ExpenseRepo
+	GroupRepo      *repository.GroupRepo
+	SettlementRepo *repository.SettlementRepo
 }
 
 func (s *BalanceService) GetGroupBalances(groupID string) ([]models.BalanceDetail, error) {
@@ -31,6 +32,17 @@ func (s *BalanceService) GetGroupBalances(groupID string) ([]models.BalanceDetai
 			net[split.UserID] -= split.Amount
 		}
 	}
+
+	// Factor in settlements: a settlement means PaidBy paid PaidTo
+	settlements, err := s.SettlementRepo.GetByGroup(gID)
+	if err != nil {
+		return nil, err
+	}
+	for _, st := range settlements {
+		net[st.PaidBy] += st.Amount
+		net[st.PaidTo] -= st.Amount
+	}
+
 	return minimizeTransactions(net), nil
 }
 func (s *BalanceService) GetUserOverallBalance(userID string) ([]models.BalanceDetail, error) {
@@ -56,6 +68,16 @@ func (s *BalanceService) GetUserOverallBalance(userID string) ([]models.BalanceD
 			for _, split := range expense.Splits {
 				net[split.UserID] -= split.Amount
 			}
+		}
+
+		// Factor in settlements for this group
+		settlements, err := s.SettlementRepo.GetByGroup(group.ID)
+		if err != nil {
+			continue
+		}
+		for _, st := range settlements {
+			net[st.PaidBy] += st.Amount
+			net[st.PaidTo] -= st.Amount
 		}
 	}
 

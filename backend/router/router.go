@@ -29,8 +29,9 @@ func SetupRouter() http.Handler {
 		SettlementRepo: settlementRepo,
 	}
 	balanceSvc := &services.BalanceService{
-		ExpenseRepo: expenseRepo,
-		GroupRepo:   groupRepo,
+		ExpenseRepo:    expenseRepo,
+		GroupRepo:      groupRepo,
+		SettlementRepo: settlementRepo,
 	}
 	expenseSvc := &services.ExpenseService{
 		Repo:      expenseRepo,
