@@ -60,6 +60,8 @@ func SetupRouter() http.Handler {
 	// Public Routes (No Token Needed)
 	r.HandleFunc("/api/users/register", userHandler.Register).Methods("POST")
 	r.HandleFunc("/api/users/login", userHandler.Login).Methods("POST")
+	r.HandleFunc("/api/users/forgot-password", userHandler.ForgotPassword).Methods("POST")
+	r.HandleFunc("/api/users/reset-password", userHandler.ResetPassword).Methods("POST")
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
